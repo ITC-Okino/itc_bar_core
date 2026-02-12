@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
 	title: "ITC BAR",
-	description: "ITC Barの在庫管理・発注システム",
+	description: "ITC BAR tool",
 	icons: {
 		icon: "/img/logo.png",
 		apple: "/img/logo.png",
