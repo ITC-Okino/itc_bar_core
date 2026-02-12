@@ -1,7 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import { join } from "path";
-import { v4 as uuidv4 } from "uuid";
+import { put } from "@vercel/blob";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
@@ -12,18 +10,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
         }
 
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
+        // Upload to Vercel Blob
+        const blob = await put(file.name, file, {
+            access: "public",
+        });
 
-        // Get extension
-        const ext = file.name.split(".").pop();
-        const fileName = `${uuidv4()}.${ext}`;
-        const relativePath = `/uploads/${fileName}`;
-        const absolutePath = join(process.cwd(), "public", "uploads", fileName);
-
-        await writeFile(absolutePath, buffer);
-
-        return NextResponse.json({ url: relativePath });
+        return NextResponse.json({ url: blob.url });
     } catch (error) {
         console.error("Upload error:", error);
         return NextResponse.json({ error: "Upload failed" }, { status: 500 });
