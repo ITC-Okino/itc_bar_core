@@ -1,0 +1,20 @@
+Checking DATABASE_URL...
+DATABASE_URL exists (length: 152)
+Protocol: postgresql:
+Testing Pool connection directly...
+Pool connection successful: { '?column?': 1 }
+Connecting Prisma...
+Connected successfully!
+Connection failed: Error: No database host or connection string was set, and key parameters have default values (host: localhost, user: itcpc057, db: itcpc057, password: null). Is an environment variable missing? Alternatively, if you intended to connect with these parameters, please set the host to 'localhost' explicitly.
+    at Un.connect (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@neondatabase+serverless@1.0.2/node_modules/@neondatabase/serverless/index.js:1318:50)
+    at Dn.newClient (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@neondatabase+serverless@1.0.2/node_modules/@neondatabase/serverless/index.js:1117:85)
+    at Dn.connect (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@neondatabase+serverless@1.0.2/node_modules/@neondatabase/serverless/index.js:1114:1)
+    at Dn.query (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@neondatabase+serverless@1.0.2/node_modules/@neondatabase/serverless/index.js:1138:1)
+    at Dn.query (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@neondatabase+serverless@1.0.2/node_modules/@neondatabase/serverless/index.js:1354:96)
+    at PrismaNeonAdapter.performIO (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@prisma+adapter-neon@7.4.0/node_modules/@prisma/adapter-neon/dist/index.js:554:40)
+    at PrismaNeonAdapter.queryRaw (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@prisma+adapter-neon@7.4.0/node_modules/@prisma/adapter-neon/dist/index.js:515:41)
+    at callback (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@prisma+client@7.3.0_prisma@7.3.0_@types+react@19.2.10_better-sqlite3@12.6.2_react-dom@19.2.3_lur7hue5kfqyiuivcxwnrpcsqy/node_modules/@prisma/client-engine-runtime/src/interpreter/query-interpreter.ts:184:16)
+    at withQuerySpanAndEvent (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@prisma+client@7.3.0_prisma@7.3.0_@types+react@19.2.10_better-sqlite3@12.6.2_react-dom@19.2.3_lur7hue5kfqyiuivcxwnrpcsqy/node_modules/@prisma/client-engine-runtime/src/tracing.ts:80:12)
+    at e.#withQuerySpanAndEvent (/Users/itcpc057/workspace/itc-bar/itc_bar_core/node_modules/.pnpm/@prisma+client@7.3.0_prisma@7.3.0_@types+react@19.2.10_better-sqlite3@12.6.2_react-dom@19.2.3_lur7hue5kfqyiuivcxwnrpcsqy/node_modules/@prisma/client-engine-runtime/src/interpreter/query-interpreter.ts:363:12) {
+  clientVersion: '7.3.0'
+}

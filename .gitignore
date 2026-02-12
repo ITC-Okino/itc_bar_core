@@ -40,7 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
-# local verification
-dev.db
-output.txt
+/app/generated/prisma
