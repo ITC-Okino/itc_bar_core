@@ -1,10 +1,11 @@
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  // engineType = "library" 
 }
 
 // 所持しているボトル
@@ -36,6 +37,7 @@ model Cocktail {
   method      String?  // shake, stir, build
   status      String   @default("IN_STOCK") // IN_STOCK, OUT_OF_STOCK
   imageUrl    String?  @map("image_url")
+  isNonAlcoholic Boolean @default(false) @map("is_non_alcoholic")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

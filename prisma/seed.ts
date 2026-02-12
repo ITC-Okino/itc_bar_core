@@ -1,15 +1,7 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { PrismaNeonHttp } from "@prisma/adapter-neon";
-
-const connectionString = process.env.DATABASE_URL!;
-const adapter = new PrismaNeonHttp(connectionString, {
-	arrayMode: false,
-	fullResults: true,
-});
 
 const prisma = new PrismaClient({
-	adapter,
 	log: ["query", "info", "warn", "error"],
 });
 
@@ -264,6 +256,174 @@ const bottles = [
 	},
 ];
 
+const cocktails = [
+	{
+		name: "チャイナブルー",
+		description:
+			"ライチリキュールをベースにしたフルーティーなカクテルで、青空のような清々しさが最大の特徴です。ベースであるライチの持つ優しい甘さとすっきりとしたさわやかさが魅力で、度数も高くないことからお酒に弱い人でも飲みやすいカクテルになっています。\n\n補足: ライチの優しい甘さとグレープフルーツのすっきりとした後味で、非常に飲みやすいカクテルです。 ソーダを入れることでさらに爽快感を出すことも可能です。\n\nAlc: 5.5%",
+		method: "ビルド",
+		tasteNote: "フルーティー",
+		ingredients: ["DITA", "グレープフルーツジュース", "ブルーキュラソー"],
+	},
+	{
+		name: "パッソアオレンジ",
+		description:
+			"甘くフルーティで、軽やかな飲み心地のカクテルです。 ジュース感覚で飲めるため、女性やアルコールが苦手な方にもお勧めできる一杯です。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "フルーティ",
+		ingredients: ["PASSOA", "オレンジジュース"],
+	},
+	{
+		name: "ジントニック",
+		description:
+			"ジンをベースにしたカクテルの中で、最もポピュラーなカクテル。薬草の香りがするジンと柑橘系の香りのトニックウォーターが合わさり、爽快感のあるカクテルです。 ジンは使う材料によって味わいが異なり種類も豊富なので、ジントニックひとつでも様々な味わいが楽しめます。\n\nAlc: 12.4%",
+		method: "ビルド",
+		tasteNote: "さっぱり",
+		ingredients: ["ドライ・ジン", "トニックウォーター"],
+	},
+	{
+		name: "ジンソーダ",
+		description:
+			"ジンの爽やかな風味をダイレクトに感じながら、炭酸の発泡感で喉越しが良いカクテルです。\n\nAlc: 9%",
+		method: "ビルド",
+		tasteNote: "さっぱり",
+		ingredients: ["ドライ・ジン", "ソーダ"],
+	},
+	{
+		name: "ジンバック",
+		description:
+			"ジンをジンジャーエールで割り、レモンジュースを加えたカクテル。ジンの爽やかな風味にジンジャーエールの刺激、レモンジュースの酸味が絶妙にマッチした、甘酸っぱく爽やかな味わいが魅力のカクテルです。\n\nAlc: 9%",
+		method: "ビルド",
+		tasteNote: "中甘辛口",
+		ingredients: ["ドライ・ジン", "レモンジュース", "ジンジャーエール"],
+	},
+	{
+		name: "バラライカ",
+		description:
+			"口当たりはサッパリとしているため飲みやすさを感じますが、アルコール度数は高めのカクテルです。ショート・カクテル全般に言えることですが、少しずつ味わいながら飲むことをオススメします。\n\nAlc: 30%",
+		method: "シェイク",
+		tasteNote: "中甘辛口",
+		ingredients: ["ウォッカ", "ホワイトキュラソー", "レモンジュース"],
+	},
+	{
+		name: "スクリュードライバー",
+		description:
+			"甘さと酸味のバランスが良い風味の飲みやすいカクテル。すっきりとした飲み口で、オレンジジュースの甘味とフルーティーな酸味を、ウォッカが引締めたような味わいです。工具のネジ回しを使ってウォッカとオレンジジュースを混ぜて作られたのが名前の由来とされています。\n\nAlc: 12%",
+		method: "ビルド",
+		tasteNote: "中甘辛口",
+		ingredients: ["ウォッカ", "オレンジジュース"],
+	},
+	{
+		name: "レディ・デイ",
+		description:
+			"名前はサックス奏者のレスター・ヤングがアメリカ黒人の歌姫であるビリー・ホリデイに慈愛を込めてつけた名前から。ライチリキュールの香りが漂い、甘さは感じず、程良いフルーティーな酸味で、すっきりとした味わい。\n\nAlc: 21%",
+		method: "シェイク",
+		tasteNote: "中辛",
+		ingredients: ["ウォッカ", "グレープフルーツジュース", "ライチリキュール"],
+	},
+	{
+		name: "アンシャンテ",
+		description:
+			"名前はフランス語で「始めまして」の意味。ライチリキュールの香りと甘みを感じながらも、さっぱりとしていて、後味でジンの風味をしっかりと感じる甘酸っぱいカクテル。銀座バーオーパの大槻健二氏の創作。\n\nAlc: 24%",
+		method: "シェイク",
+		tasteNote: "甘酸っぱい",
+		ingredients: ["ドライ・ジン", "ライチリキュール", "レモンジュース", "砂糖"],
+	},
+	{
+		name: "ディタモーニ",
+		description:
+			"上品なライチの香り。グレープフルーツとトニックウォーターがライチの良さを引き立たせ、ほんのりと甘く爽やかな味わいが特徴的なカクテルです。\n\nAlc: 6%",
+		method: "ビルド",
+		tasteNote: "中甘口",
+		ingredients: ["DITA", "グレープフルーツジュース", "トニックウォーター"],
+	},
+	{
+		name: "ライチトニック",
+		description:
+			"ライチの甘みとトニックウォーターの苦味が絶妙にマッチした、さっぱりとした口当たりのカクテルです。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "さっぱり",
+		ingredients: ["ライチリキュール", "トニックウォーター"],
+	},
+	{
+		name: "ライチ・オレンジ",
+		description:
+			"ライチの香りとオレンジジュースの酸味が合わさったフルーティな味わいのカクテルです。フルーツジュースで割ったカクテルは、比較的アルコール度数も低めなので、お酒にあまり強くない方にもお勧めです。\n\nAlc: 4%",
+		method: "ビルド",
+		tasteNote: "フルーティ",
+		ingredients: ["ライチリキュール", "オレンジジュース"],
+	},
+	{
+		name: "ライチ・コーラ",
+		description:
+			"フルーティなライチの香りにコーラの風味が合わさり、爽快な味わいのカクテル。ライチリキュールの香りも楽しめるので、是非香りも楽しんでいただきたいカクテルです。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "さっぱり",
+		ingredients: ["ライチリキュール", "コーラ"],
+	},
+	{
+		name: "パッソアジンジャー",
+		description:
+			"ジンジャーエールの甘口で作るとさっぱり、ジンジャーエールの辛口で作ると刺激的な味わいになるカクテルです。 パンチのある味わいを求めるならジンジャーエール割りと言われております。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "さっぱり",
+		ingredients: ["PASSOA", "ジンジャーエール"],
+	},
+	{
+		name: "パッソアンコーク",
+		description:
+			"甘口でフルーティ。揚げ物などのジャンキーな食べ物との相性は最高。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "甘口",
+		ingredients: ["PASSOA", "コーラ"],
+	},
+	{
+		name: "ピーチツリーフィズ",
+		description:
+			"はじける桃の香りが心地いいカクテル。さっぱりとしていて、とても飲みやすくアルコール度数も低め。とても人気のあるカクテルです。\n\nAlc: 5%",
+		method: "ビルド",
+		tasteNote: "すっきり",
+		ingredients: ["ピーチツリー", "ソーダ"],
+	},
+	{
+		name: "ファジーネーブル",
+		description:
+			"ピーチとオレンジをあわせた甘みと酸味が合わさったフルーティなカクテル。果汁のナチュラル感があり、飲みやすい味わいで、ジュース感覚で美味しくいただける一杯です。\n\nAlc: 5%",
+		method: "ビルド",
+		tasteNote: "フルーティ",
+		ingredients: ["ピーチツリー", "オレンジジュース"],
+	},
+	{
+		name: "カルーアミルク",
+		description:
+			"1970年代頃からアメリカのボストンで、特に女性に受けて大ブレイクした甘いカクテル。コーヒーミルクのような味わい。スイーツ感覚で飲みやすいカクテルです。カルーアの名前はアラビア語でコーヒーを意味する「カフワ(kahua)」が由来元と言われています。\n\nAlc: 5%",
+		method: "ビルド",
+		tasteNote: "甘口",
+		ingredients: ["カルーア", "牛乳"],
+	},
+	{
+		name: "ベイリーズミルク",
+		description:
+			"濃厚なクリーム系のリキュール、ベイリーズとミルクを合わせたカクテルです。ほどよい甘さがあり、さっぱりしていて飲みやすいと女性からの人気が高いです。\n\nAlc: ～8%",
+		method: "ビルド",
+		tasteNote: "甘口",
+		ingredients: ["ベイリーズ", "牛乳"],
+	},
+	{
+		name: "アイリッシュコーヒー",
+		description:
+			"コーヒーのほろ苦さと生クリームの甘さが絶妙な、アイリッシュウイスキーを使ったホットカクテルです。 ついコーヒーとクリームを混ぜてしまいがちですが、コーヒーとクリームは、混ぜずに飲むのが正しい飲み方と言われています。\n\nAlc: 18%",
+		method: "ビルド",
+		tasteNote: "甘口",
+		ingredients: [
+			"アイリッシュウイスキー",
+			"砂糖",
+			"ホットコーヒー",
+			"生クリーム",
+		],
+	},
+];
+
 async function main() {
 	console.log("Start seeding...");
 	for (const b of bottles) {
@@ -283,6 +443,52 @@ async function main() {
 				data: b,
 			});
 			console.log(`Created bottle with id: ${bottle.id}`);
+		}
+	}
+
+	console.log("Seeding cocktails...");
+	for (const c of cocktails) {
+		const existing = await prisma.cocktail.findFirst({
+			where: { name: c.name },
+		});
+
+		let cocktail;
+		if (existing) {
+			// Update existing cocktail
+			cocktail = await prisma.cocktail.update({
+				where: { id: existing.id },
+				data: {
+					description: c.description,
+					method: c.method,
+					tasteNote: c.tasteNote,
+					// Re-create ingredients
+					ingredients: {
+						deleteMany: {},
+						create: c.ingredients.map((name) => ({
+							name,
+							quantity: null, // As per markdown data, quantity isn't specified
+						})),
+					},
+				},
+			});
+			console.log(`Updated cocktail with id: ${cocktail.id}`);
+		} else {
+			// Create new cocktail
+			cocktail = await prisma.cocktail.create({
+				data: {
+					name: c.name,
+					description: c.description,
+					method: c.method,
+					tasteNote: c.tasteNote,
+					ingredients: {
+						create: c.ingredients.map((name) => ({
+							name,
+							quantity: null,
+						})),
+					},
+				},
+			});
+			console.log(`Created cocktail with id: ${cocktail.id}`);
 		}
 	}
 	console.log("Seeding finished.");

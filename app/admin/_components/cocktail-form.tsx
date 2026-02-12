@@ -20,6 +20,7 @@ interface CocktailFormProps {
         method: string | null;
         status: string;
         imageUrl: string | null;
+        isNonAlcoholic: boolean;
         ingredients: {
             id: number;
             bottleId: number | null;
@@ -45,6 +46,7 @@ export default function CocktailForm({
         method: initialData?.method || "build",
         status: initialData?.status || "IN_STOCK",
         imageUrl: initialData?.imageUrl || "",
+        isNonAlcoholic: initialData?.isNonAlcoholic || false,
     });
 
     const [ingredients, setIngredients] = useState<Ingredient[]>(
@@ -62,6 +64,11 @@ export default function CocktailForm({
     ) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: checked }));
     };
 
     const addIngredient = () => {
@@ -163,6 +170,22 @@ export default function CocktailForm({
                         onChange={handleChange}
                         className={inputClass}
                     />
+                    <div className="mt-4 flex items-center">
+                        <input
+                            type="checkbox"
+                            id="isNonAlcoholic"
+                            name="isNonAlcoholic"
+                            checked={formData.isNonAlcoholic}
+                            onChange={handleCheckboxChange}
+                            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <label
+                            htmlFor="isNonAlcoholic"
+                            className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                        >
+                            ノンアルコール
+                        </label>
+                    </div>
                 </div>
 
                 <div>

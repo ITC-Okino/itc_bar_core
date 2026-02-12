@@ -1,38 +1,27 @@
-import "dotenv/config";
-import { neon } from "@neondatabase/serverless";
-import { PrismaNeonHttp } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
+const client_1 = require("@prisma/client");
 console.log("Checking DATABASE_URL...");
 if (!process.env.DATABASE_URL) {
     console.error("DATABASE_URL is missing!");
     process.exit(1);
-} else {
+}
+else {
     console.log("DATABASE_URL exists (length: " + process.env.DATABASE_URL.length + ")");
     try {
         const url = new URL(process.env.DATABASE_URL);
         console.log("Protocol:", url.protocol);
-    } catch (e) {
+    }
+    catch (e) {
         console.error("Invalid URL:", e);
     }
 }
-
-const connectionString = process.env.DATABASE_URL!;
-const sql = neon(connectionString);
-
+const connectionString = process.env.DATABASE_URL;
 async function main() {
-    try {
-        console.log("Testing neon() HTTP connection directly...");
-        const res = await sql`SELECT 1 as result`;
-        console.log("Neon HTTP connection successful:", res[0]);
-    } catch (e) {
-        console.error("Neon HTTP connection failed:", e);
-        process.exit(1);
-    }
-
-    const adapter = new PrismaNeonHttp(connectionString, { arrayMode: false, fullResults: true });
-    const prisma = new PrismaClient({ adapter });
-
+    const prisma = new client_1.PrismaClient({
+        log: ['query', 'info', 'warn', 'error']
+    });
     try {
         console.log("Connecting Prisma...");
         await prisma.$connect();
@@ -40,10 +29,10 @@ async function main() {
         const count = await prisma.bottle.count();
         console.log("Bottle count:", count);
         await prisma.$disconnect();
-    } catch (e) {
+    }
+    catch (e) {
         console.error("Connection failed:", e);
         process.exit(1);
     }
 }
-
 main();
