@@ -1,0 +1,3 @@
+# Ignore CSS files (Tailwind v4 syntax not supported by Biome yet)
+**/*.css
+app/globals.css

@@ -1,0 +1,59 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+// 所持しているボトル
+model Bottle {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String   // whisky, gin, etc
+  brand       String?
+  proof       Float?
+  tasteNote   String?  @map("taste_note")
+  description String?
+  status      String   @default("IN_STOCK") // IN_STOCK, OUT_OF_STOCK, DISCONTINUED
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relation: カクテルに使われる場合
+  ingredients CocktailIngredient[]
+
+  @@map("bottles")
+}
+
+// カクテルレシピ
+model Cocktail {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  tasteNote   String?  @map("taste_note")
+  method      String?  // shake, stir, build
+  status      String   @default("IN_STOCK") // IN_STOCK, OUT_OF_STOCK
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  ingredients CocktailIngredient[]
+
+  @@map("cocktails")
+}
+
+// 中間テーブル: カクテルと素材(ボトル)
+model CocktailIngredient {
+  id          Int      @id @default(autoincrement())
+  cocktailId  Int      @map("cocktail_id")
+  bottleId    Int?     @map("bottle_id") // 特定のボトル指定の場合
+  name        String?  // ボトル未登録の素材名 (e.g. "ライムジュース", "シュガーシロップ")
+  quantity    String?  // 30ml, 1tsp etc.
+  
+  cocktail    Cocktail @relation(fields: [cocktailId], references: [id], onDelete: Cascade)
+  bottle      Bottle?  @relation(fields: [bottleId], references: [id])
+
+  @@map("cocktail_ingredients")
+}
