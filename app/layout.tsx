@@ -23,7 +23,8 @@ export const metadata: Metadata = {
 	title: "ITC BAR",
 	description: "ITC Barの在庫管理・発注システム",
 	icons: {
-		icon: "/img/itc_splash.gif",
+		icon: "/img/logo.png",
+		apple: "/img/logo.png",
 	},
 };
 

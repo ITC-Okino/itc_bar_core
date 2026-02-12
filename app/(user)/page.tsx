@@ -27,16 +27,20 @@ export default function Home() {
 				</div>
 
 				{/* Main Title */}
-				<div className="animate-in fade-in zoom-in-95 duration-1000 delay-200 flex flex-col items-center">
-					<div className="relative w-64 h-32 md:w-96 md:h-48 mb-6">
-						<Image
-							src="/img/logo.png"
-							alt="ITC BAR Logo"
-							fill
-							className="object-contain"
-							priority
-						/>
-					</div>
+				<div className="animate-in fade-in zoom-in-95 duration-1000 delay-200">
+					<h1
+						className="text-7xl md:text-9xl font-bold tracking-[0.15em] mb-6"
+						style={{
+							fontFamily: "var(--font-playfair), serif",
+							background: "linear-gradient(135deg, #ffffff 0%, #d4af37 40%, #f5e6a3 60%, #d4af37 100%)",
+							WebkitBackgroundClip: "text",
+							WebkitTextFillColor: "transparent",
+							textShadow: "none",
+							filter: "drop-shadow(0 0 40px rgba(212,175,55,0.15))",
+						}}
+					>
+						ITCBAR
+					</h1>
 					<div className="flex items-center justify-center gap-4">
 						<div className="h-px w-24 bg-gradient-to-r from-transparent to-[#d4af37]/50" />
 						<div className="w-2 h-2 rotate-45 border border-[#d4af37]/40" />
