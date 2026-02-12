@@ -43,7 +43,7 @@ export default async function CategoryPage({
 			<header className="max-w-6xl mx-auto mb-16 flex flex-col md:flex-row items-center justify-between gap-6 animate-in fade-in slide-in-from-top-4 duration-700">
 				<div className="flex items-center gap-6">
 					<Link
-						href="/"
+						href="/menu"
 						className="p-2 rounded-full border border-white/10 hover:bg-white/5 text-white/60 hover:text-white transition-all"
 					>
 						<ChevronLeft className="w-6 h-6" />
