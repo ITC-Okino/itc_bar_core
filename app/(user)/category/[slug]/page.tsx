@@ -4,8 +4,8 @@ import Link from "next/link";
 import { listBottles } from "@/app/_service/list-bottles";
 import { listCocktails } from "@/app/_service/list-cocktails";
 import { StockToggle } from "@/app/(user)/_components/stock-toggle";
-import { NonAlcoholicToggle } from "@/app/(user)/_components/non-alcoholic-toggle";
 import { Badge } from "@/core/components/ui/badge";
+import { Button } from "@/core/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -26,7 +26,7 @@ export default async function CategoryPage({
 	searchParams,
 }: CategoryPageProps) {
 	const { slug } = await params;
-	const { showAll, non_alcoholic } = await searchParams;
+	const { showAll } = await searchParams;
 
 	const config = CATEGORY_MAP[slug] || {
 		title: slug.toUpperCase(),
@@ -35,15 +35,16 @@ export default async function CategoryPage({
 
 	const statusFilter = showAll === "true" ? undefined : ["IN_STOCK"];
 	const isCocktailCategory = slug === "cocktail";
-	const isNonAlcoholic = non_alcoholic === "true";
+	const isMocktailCategory = slug === "mocktail";
+	const isDrinkCategory = isCocktailCategory || isMocktailCategory;
 
 	let bottles: Bottle[] = [];
 	let cocktails: Cocktail[] = [];
 
-	if (isCocktailCategory) {
+	if (isDrinkCategory) {
 		cocktails = await listCocktails({
 			status: statusFilter,
-			isNonAlcoholic: isNonAlcoholic,
+			isNonAlcoholic: isMocktailCategory,
 		});
 	} else {
 		bottles = await listBottles({
@@ -67,13 +68,22 @@ export default async function CategoryPage({
 					</h1>
 				</div>
 				<div className="flex items-center gap-4">
-					{isCocktailCategory && <NonAlcoholicToggle />}
+					{isDrinkCategory && (
+						<Link href={isCocktailCategory ? "/category/mocktail" : "/category/cocktail"}>
+							<Button
+								variant="outline"
+								className="border-white/10 text-white/60 hover:text-white hover:bg-white/5 tracking-wider font-light"
+							>
+								{isCocktailCategory ? "ノンアルコールはこちら" : "アルコールはこちら"}
+							</Button>
+						</Link>
+					)}
 					<StockToggle />
 				</div>
 			</header>
 
 			<div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-				{isCocktailCategory ? (
+				{isDrinkCategory ? (
 					cocktails.length > 0 ? (
 						cocktails.map((cocktail) => (
 							<Link href={`/cocktails/${cocktail.id}`} key={cocktail.id} className="group block">

@@ -6,6 +6,7 @@ export const CATEGORY_MAP: Record<string, { title: string; search: string }> = {
     tequila: { title: "TEQUILA", search: "テキーラ" },
     liqueur: { title: "LIQUEUR", search: "リキュール" },
     cocktail: { title: "COCKTAIL", search: "カクテル" },
+    mocktail: { title: "MOCKTAIL", search: "ノンアル" },
     other: { title: "OTHER", search: "その他" },
 };
 
