@@ -15,6 +15,7 @@ const categories = [
 	{ slug: "tequila", title: "TEQUILA", subtitle: "テキーラ", img: "/img/tequila.png" },
 	{ slug: "liqueur", title: "LIQUEUR", subtitle: "リキュール", img: "/img/liqueur.png" },
 	{ slug: "cocktail", title: "COCKTAIL", subtitle: "カクテル", img: "/img/cocktail.png" },
+	{ slug: "mocktail", title: "MOCKTAIL", subtitle: "ノンアルコール", img: "/img/mocktail.png" }, // TODO: Add mocktail image
 	{ slug: "other", title: "OTHER", subtitle: "その他", img: "/img/liqueur.png" },
 ];
 

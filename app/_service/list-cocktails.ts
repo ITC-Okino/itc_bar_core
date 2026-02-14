@@ -14,8 +14,8 @@ export const listCocktails = async (params: ListCocktailsParams = {}) => {
         };
     }
 
-    if (params.isNonAlcoholic) {
-        where.isNonAlcoholic = true;
+    if (params.isNonAlcoholic !== undefined) {
+        where.isNonAlcoholic = params.isNonAlcoholic;
     }
 
     return await prisma.cocktail.findMany({
