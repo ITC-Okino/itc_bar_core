@@ -48,7 +48,7 @@ export default async function BottlePage({ params }: BottlePageProps) {
                                     src={bottle.imageUrl}
                                     alt={bottle.name}
                                     fill
-                                    className="object-contain p-6"
+                                    className="object-cover"
                                     priority
                                 />
                             </div>
