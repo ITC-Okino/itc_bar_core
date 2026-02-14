@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/core/lib/db";
 
 export async function GET() {
@@ -45,6 +46,13 @@ export async function POST(request: Request) {
                 },
             },
         });
+
+
+        revalidatePath("/");
+        revalidatePath("/admin/cocktails");
+        revalidatePath("/category/cocktail");
+        revalidatePath("/category/mocktail");
+
         return NextResponse.json(cocktail);
     } catch (error) {
         console.error("Failed to create cocktail:", error);

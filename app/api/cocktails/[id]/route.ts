@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/core/lib/db";
 
 export async function GET(
@@ -65,6 +66,11 @@ export async function PUT(
                 },
             },
         });
+        revalidatePath("/");
+        revalidatePath("/admin/cocktails");
+        revalidatePath("/category/cocktail");
+        revalidatePath("/category/mocktail");
+
         return NextResponse.json(cocktail);
     } catch (error) {
         console.error("Failed to update cocktail:", error);
@@ -84,6 +90,12 @@ export async function DELETE(
         await prisma.cocktail.delete({
             where: { id: Number(id) },
         });
+
+        revalidatePath("/");
+        revalidatePath("/admin/cocktails");
+        revalidatePath("/category/cocktail");
+        revalidatePath("/category/mocktail");
+
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Failed to delete cocktail:", error);
