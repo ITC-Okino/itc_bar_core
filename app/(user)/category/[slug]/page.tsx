@@ -68,13 +68,13 @@ export default async function CategoryPage({
 					</h1>
 				</div>
 				<div className="flex items-center gap-4">
-					{isDrinkCategory && (
-						<Link href={isCocktailCategory ? "/category/mocktail" : "/category/cocktail"}>
+					{isCocktailCategory && (
+						<Link href="/category/mocktail">
 							<Button
 								variant="outline"
 								className="border-white/10 text-white/60 hover:text-white hover:bg-white/5 tracking-wider font-light"
 							>
-								{isCocktailCategory ? "ノンアルコールはこちら" : "アルコールはこちら"}
+								ノンアルコールはこちら
 							</Button>
 						</Link>
 					)}
@@ -96,7 +96,12 @@ export default async function CategoryPage({
 											>
 												{cocktail.isNonAlcoholic ? "NON-ALCOHOLIC" : "COCKTAIL"}
 											</Badge>
-											<span className="text-[10px] uppercase tracking-widest text-white/20">
+											<span
+												className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded border ${cocktail.status === "IN_STOCK"
+													? "text-emerald-400 border-emerald-400/20 bg-emerald-400/5"
+													: "text-red-400 border-red-400/20 bg-red-400/5"
+													}`}
+											>
 												{cocktail.status === "IN_STOCK" ? "在庫あり" : "在庫なし"}
 											</span>
 										</div>
@@ -142,7 +147,12 @@ export default async function CategoryPage({
 											>
 												{bottle.category}
 											</Badge>
-											<span className="text-[10px] uppercase tracking-widest text-white/20">
+											<span
+												className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded border ${bottle.status === "IN_STOCK"
+													? "text-emerald-400 border-emerald-400/20 bg-emerald-400/5"
+													: "text-red-400 border-red-400/20 bg-red-400/5"
+													}`}
+											>
 												{bottle.status === "IN_STOCK" ? "在庫あり" : "在庫なし"}
 											</span>
 										</div>
