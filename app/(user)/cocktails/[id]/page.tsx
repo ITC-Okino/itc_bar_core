@@ -98,7 +98,7 @@ export default async function CocktailDetailPage({
                         </div>
 
                         {cocktail.imageUrl && (
-                            <div className="w-full lg:w-1/3 max-w-[320px] aspect-square relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.02] shadow-2xl transition-transform hover:scale-[1.02] duration-500 flex-shrink-0">
+                            <div className="w-full lg:w-1/3 max-w-[320px] aspect-[3/4] relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.02] shadow-2xl transition-transform hover:scale-[1.02] duration-500 flex-shrink-0">
                                 <Image
                                     src={cocktail.imageUrl}
                                     alt={cocktail.name}
